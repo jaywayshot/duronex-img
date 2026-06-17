@@ -1,0 +1,309 @@
+<!--@layout(/layout/basic/main.html)-->
+
+<!-- ===== DURONEX custom skin ===== -->
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#1A1A1C;--bg2:#0D0D0F;--paper:#EDEAE3;--white:#FAFAF7;--ink:#0D0D0F;--mut:#9A968C;--mut2:#6B6860;--line:#33323040;--blue:#2B4FFF;--acid:#E8FF00;--maxw:1500px;--gut:clamp(18px,4vw,56px);--sans:'Helvetica Neue',Arial,-apple-system,'Pretendard','Apple SD Gothic Neo',sans-serif}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--bg);color:var(--white);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gut)}.up{text-transform:uppercase}.mono{font-variant-numeric:tabular-nums;letter-spacing:.05em}
+.grain{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.045;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.btn{display:inline-block;padding:18px 40px;background:var(--blue);color:#fff;font-weight:800;font-size:.98rem;letter-spacing:.1em;text-transform:uppercase;border:2px solid var(--blue);transition:.15s;white-space:nowrap}
+.btn:hover{background:transparent;color:var(--blue)}
+
+/* HEADER */
+.hd{position:fixed;top:0;left:0;right:0;z-index:100;mix-blend-mode:difference}
+.hd__in{display:flex;align-items:center;justify-content:space-between;padding:16px var(--gut)}
+.hd__logo{font-weight:800;letter-spacing:-.02em;font-size:1.15rem;color:#fff}
+.hd__nav{display:flex;gap:24px;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#fff}
+@media(max-width:760px){.hd__nav{gap:14px;font-size:.64rem}.hd__logo{font-size:1rem}}
+@media(max-width:460px){.hd__nav{display:none}}
+
+/* MARQUEE */
+.mq{background:var(--acid);color:#000;overflow:hidden;white-space:nowrap;border-block:2px solid #000}
+.mq__t{display:inline-block;padding:8px 0;font-weight:800;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;animation:mq 22s linear infinite}
+.mq__t span{padding:0 18px}@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* HERO */
+.hero{position:relative;height:88vh;height:min(88dvh,860px);min-height:520px;overflow:hidden;background:var(--bg2)}
+.hero__img{position:absolute;inset:0;width:100%;height:100%;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s cubic-bezier(.4,0,.2,1);backface-visibility:hidden}
+.hero__img.on{opacity:1}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.4),transparent 28%,rgba(0,0,0,.65))}
+.hero__hud{position:absolute;z-index:3;inset:0;pointer-events:none}
+.hero__tag{position:absolute;top:74px;left:var(--gut);font-size:.68rem;font-weight:700;letter-spacing:.18em;color:#fff;text-transform:uppercase}
+.hero__idx{position:absolute;top:74px;right:var(--gut);font-size:.68rem;font-weight:700;letter-spacing:.1em;color:#fff}
+.hero__big{position:absolute;left:var(--gut);right:var(--gut);bottom:clamp(28px,6vh,68px);z-index:3}
+.hero__big h1{font-size:clamp(3rem,13vw,12rem);font-weight:800;line-height:.94;letter-spacing:-.03em;color:#fff;text-transform:uppercase;text-shadow:0 4px 30px rgba(0,0,0,.5)}
+.hero__big h1 em{font-style:normal;color:var(--blue);-webkit-text-stroke:2px #fff}
+.hero__row{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-top:16px;flex-wrap:wrap;pointer-events:auto}
+.hero__row p{max-width:32ch;color:rgba(255,255,255,.92);font-size:clamp(1rem,1.6vw,1.2rem);text-shadow:0 2px 12px rgba(0,0,0,.6);word-break:keep-all;line-height:1.55;font-weight:500}
+@media(max-width:560px){.hero__row{flex-direction:column;align-items:flex-start;gap:14px}.hero__row .btn{width:100%;text-align:center}}
+
+/* SECTION LABEL */
+.lab{display:flex;align-items:center;gap:12px;font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.lab::before{content:"";width:30px;height:2px;background:var(--blue)}
+
+/* MANIFESTO */
+.man{padding:clamp(64px,12vh,150px) 0;background:var(--paper);color:var(--ink)}
+.man h2{font-size:clamp(2.1rem,6vw,5rem);font-weight:800;line-height:1.34;letter-spacing:-.02em;margin:18px 0 0;max-width:20ch;word-break:keep-all}
+.man h2 mark{display:inline-block;background:var(--blue);color:#fff;padding:.06em .18em;line-height:1.05;margin:.04em .06em .04em 0}
+.man p{margin-top:1.6rem;max-width:46ch;color:#444;font-size:clamp(.95rem,1.4vw,1.05rem);font-weight:500;word-break:keep-all;line-height:1.7}
+
+/* CHAPTERS */
+.ch{position:relative;border-top:2px solid #000}
+.ch__img{width:100%;height:clamp(380px,76vh,820px);background-size:cover;background-position:center}
+.ch__cap{position:absolute;z-index:3;left:0;right:0;bottom:0;padding:clamp(20px,4vw,40px) var(--gut);display:flex;justify-content:space-between;align-items:flex-end;gap:18px;color:#fff;background:linear-gradient(180deg,transparent,rgba(0,0,0,.82))}
+.ch__no{font-size:clamp(2rem,6vw,4.6rem);font-weight:800;line-height:.8;letter-spacing:-.03em;flex:0 0 auto;color:var(--blue);-webkit-text-stroke:1.5px #fff}
+.ch__meta{max-width:46ch}
+.ch__meta h3{font-size:clamp(1.7rem,3.8vw,2.8rem);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;line-height:1.12;word-break:keep-all}
+.ch__meta p{color:#fff;font-size:clamp(1rem,1.5vw,1.15rem);margin-top:10px;word-break:keep-all;line-height:1.55;max-width:42ch}
+@media(max-width:560px){.ch__cap{flex-direction:column;align-items:flex-start;gap:8px}}
+
+/* LOOKBOOK */
+.look{padding:clamp(54px,9vh,110px) 0;background:var(--bg)}
+.look__head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px;gap:14px;flex-wrap:wrap}
+.look__head h3{font-size:clamp(1.5rem,4vw,2.8rem);font-weight:800;text-transform:uppercase;letter-spacing:-.03em}
+.look__strip{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;-webkit-overflow-scrolling:touch}
+.look__strip::-webkit-scrollbar{height:5px}.look__strip::-webkit-scrollbar-thumb{background:var(--blue)}
+.look__item{position:relative;flex:0 0 clamp(230px,72vw,460px);aspect-ratio:3/4;background-size:cover;background-position:center;scroll-snap-align:start}
+.look__item span{position:absolute;top:10px;left:10px;font-size:.66rem;font-weight:700;letter-spacing:.1em;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.7)}
+
+/* BUY */
+.buy{background:var(--paper);color:var(--ink);border-block:2px solid #000}
+.buy__grid{display:grid;grid-template-columns:1.3fr .9fr}
+.buy__media{background:#ddd center/cover;min-height:84vh;border-right:2px solid #000}
+.buy__panel{padding:clamp(28px,5vw,66px);display:flex;flex-direction:column;justify-content:center}
+.buy__panel .sticky{position:sticky;top:74px}
+.buy__brand{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mut2)}
+.buy__model{font-size:clamp(1.6rem,3.6vw,2.8rem);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:.3rem 0 1.2rem;word-break:keep-all}
+.buy__price{display:flex;align-items:baseline;gap:10px;margin-bottom:.2rem;flex-wrap:wrap}
+.buy__now{font-size:clamp(1.5rem,3vw,2rem);font-weight:800}.buy__was{color:var(--mut2);text-decoration:line-through;font-size:1rem}
+.buy__off{background:var(--blue);color:#fff;font-weight:800;font-size:.85rem;padding:2px 8px}
+.buy__opt{margin-top:1.5rem}.buy__opt h4{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mut2);margin-bottom:.6rem}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opt{padding:11px 17px;border:2px solid #000;background:transparent;font-weight:700;font-size:.88rem;cursor:pointer;transition:.12s}
+.opt:hover{background:#000;color:var(--paper)}.opt.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.buy__cta{margin-top:1.8rem}.buy__cta .btn{width:100%;text-align:center}
+.buy__note{margin-top:1rem;font-size:.78rem;color:var(--mut2);font-weight:500;line-height:1.7;word-break:keep-all}
+@media(max-width:820px){.buy__grid{grid-template-columns:1fr}.buy__media{min-height:62vh;border-right:0;border-bottom:2px solid #000}.buy__panel .sticky{position:static}}
+
+/* SIZES */
+.sz{padding:clamp(56px,10vh,140px) 0;background:var(--bg)}
+.sz h3{font-size:clamp(1.6rem,4.2vw,3rem);font-weight:800;text-transform:uppercase;letter-spacing:-.03em;margin:16px 0 26px}
+.sz__row{display:grid;grid-template-columns:.6fr 1.1fr 1fr 1fr 1.2fr;gap:16px;padding:28px 0;border-top:1px solid var(--line);align-items:center}
+.sz__row:last-child{border-bottom:1px solid var(--line)}
+.sz__in{font-size:clamp(2rem,4vw,2.8rem);font-weight:800;color:var(--blue);line-height:1}
+.sz__k{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);display:block;margin-bottom:6px}
+.sz__v{font-size:clamp(1rem,1.5vw,1.18rem);font-weight:600;word-break:keep-all}
+@media(max-width:680px){.sz__row{grid-template-columns:1fr 1fr;gap:10px 14px}.sz__in{grid-column:1/-1;margin-bottom:4px}}
+
+/* CLOSING */
+.cl{position:relative;min-height:88vh;display:flex;align-items:flex-end;background:var(--bg2) center/cover;overflow:hidden}
+.cl::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.78))}
+.cl__c{position:relative;z-index:2;padding-bottom:clamp(36px,7vh,80px)}
+.cl__c h2{font-size:clamp(2.8rem,9vw,7rem);font-weight:800;line-height:1.02;letter-spacing:-.04em;color:#fff;text-transform:none;text-shadow:0 4px 30px rgba(0,0,0,.5)}
+.cl__c h2 em{font-style:normal;color:var(--blue)}
+.cl__c p{margin-top:1.1rem;max-width:34ch;color:rgba(255,255,255,.9);font-size:clamp(1rem,1.5vw,1.15rem);word-break:keep-all;text-shadow:0 2px 12px rgba(0,0,0,.6);font-weight:500}.cl__c .btn{margin-top:1.6rem}
+
+/* FOOTER */
+.ft{background:var(--bg2);color:var(--mut);padding:clamp(44px,7vh,84px) 0 34px;border-top:2px solid var(--blue)}
+.ft__top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:32px;padding-bottom:36px;border-bottom:1px solid var(--line)}
+.ft__logo{color:#fff;font-weight:800;font-size:1.4rem;letter-spacing:-.02em}
+.ft h5{color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
+.ft a{display:block;margin-bottom:8px;font-size:.86rem;font-weight:500}
+.ft__info{font-size:.78rem;line-height:1.9;margin-top:24px;color:var(--mut2);word-break:keep-all}
+.ft__copy{padding-top:22px;font-size:.74rem;color:var(--mut2);font-weight:600;letter-spacing:.05em}
+@media(max-width:760px){.ft__top{grid-template-columns:1fr 1fr;gap:24px}.ft__logo{grid-column:1/-1}}
+@media(max-width:460px){.ft__top{grid-template-columns:1fr}}
+
+/* 룩북 무한 흐름 */
+.look__viewport{overflow:hidden;width:100%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.look__track{display:flex;gap:14px;width:max-content;animation:lookflow 48s linear infinite;padding-block:4px}
+.look__viewport .look__item{position:relative;flex:0 0 clamp(240px,40vw,420px);aspect-ratio:3/4;background-size:cover;background-position:center}
+@keyframes lookflow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.look__track{animation:none}.look__viewport{overflow-x:auto}}
+
+/* 히어로 하단 도트 네비 */
+.hero__dots{position:absolute;z-index:4;left:0;right:0;bottom:18px;display:flex;justify-content:center;gap:10px}
+.hero__dot{width:9px;height:9px;border-radius:50%;border:0;padding:0;cursor:pointer;background:rgba(255,255,255,.4);transition:.2s}
+.hero__dot:hover{background:rgba(255,255,255,.7)}
+.hero__dot.on{background:var(--blue);width:26px;border-radius:6px}
+
+
+/* === DURONEX header override (카페24 기본 헤더 숨김) === */
+#header, .xans-layout-statelogin, hr.layout, #skipNavigation{display:none!important}
+.hd{position:fixed;top:0;left:0;right:0;z-index:1000;mix-blend-mode:normal;background:linear-gradient(180deg,rgba(0,0,0,.55),transparent)}
+.hd__in{display:flex;align-items:center;justify-content:space-between;padding:18px var(--gut)}
+.hd__logo{font-weight:800;letter-spacing:-.02em;font-size:1.6rem;color:#fff}
+.hd__nav{display:flex;gap:26px;font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;align-items:center}
+.hd__util{display:flex;gap:16px;font-size:.7rem;font-weight:700;letter-spacing:.08em;color:#fff;text-transform:uppercase}
+@media(max-width:760px){.hd__logo{font-size:1.3rem}.hd__nav{display:none}.hd__util{gap:12px;font-size:.66rem}}
+
+
+/* === mobile fix === */
+@media(max-width:760px){
+ .hero{height:78vh;height:min(78dvh,680px);min-height:480px}
+ .hero__big h1{font-size:clamp(3rem,17vw,5.5rem)}
+ .hero__tag{top:64px}
+ .hd__in{padding:12px 18px}
+ .hd__logo{font-size:1.25rem}
+ .hd{background:linear-gradient(180deg,rgba(0,0,0,.6),transparent)}
+}
+@media(max-width:460px){
+ .hero__row .btn{width:100%;text-align:center}
+}
+
+
+/* === scroll perf === */
+.ch__img,.cl,.hero__img,.look__item,.buy__media{transform:translateZ(0);content-visibility:auto}
+.look__track{will-change:transform}
+@media(max-width:760px){
+ .look__track{animation-duration:60s}
+ .hero__img{background-attachment:scroll}
+}
+
+</style>
+
+<script>
+(function(){
+ var urls=["hero-1","hero-2","hero-3","hero-4","hero-5","hero-6"];
+ urls.forEach(function(n){var i=new Image();i.src="https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/"+n+".jpeg";});
+})();
+</script>
+<section class="hero" id="top" data-hero>
+ 
+ <div class="hero__img on" data-hero-img style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/hero-1.jpeg')"></div><div class="hero__img" data-hero-img style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/hero-2.jpeg')"></div><div class="hero__img" data-hero-img style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/hero-3.jpeg')"></div><div class="hero__img" data-hero-img style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/hero-4.jpeg')"></div><div class="hero__img" data-hero-img style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/hero-5.jpeg')"></div><div class="hero__img" data-hero-img style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/hero-6.jpeg')"></div>
+ <div class="hero__hud"><span class="hero__tag">DURONEX · CITY SERIES</span></div>
+ <div class="hero__big">
+  <h1>CARRY<br>THE <em>CITY</em></h1>
+  <div class="hero__row"><p>가볍게, 단단하게. 도시를 위한 알루미늄 캐리어.</p><a class="btn" href="#buy">구매하기</a></div>
+ </div>
+ <div class="hero__dots" data-hero-dots></div>
+</section>
+<div class="mq"><div class="mq__t"><span>듀로넥스</span><span>★</span><span>CARRY THE CITY</span><span>★</span><span>ALUMINUM HARD CASE</span><span>★</span><span>SS26</span><span>★</span><span>듀로넥스</span><span>★</span><span>CARRY THE CITY</span><span>★</span><span>ALUMINUM HARD CASE</span><span>★</span><span>SS26</span><span>★</span></div></div>
+<section class="man"><div class="wrap">
+ <span class="lab">BRAND</span>
+ <h2>가볍게 떠나고<br><mark>단단하게</mark> 도착한다</h2>
+ <p>항공 등급 알루미늄 보디. 일상에서도 여행에서도, 듀로넥스가 끝까지 함께합니다.</p>
+</div></section>
+<div id="chapters">
+
+ 
+ <section class="ch">
+  <div class="ch__img" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/ch-01..jpeg')"></div>
+  <div class="ch__cap"><div class="ch__meta"><h3>알루미늄 보디</h3><p>흠집과 충격에 강한 무광 알루미늄. 오래 쓸수록 멋이 깊어집니다.</p></div></div>
+ </section>
+
+ 
+ <section class="ch">
+  <div class="ch__img" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/ch-02.jpeg')"></div>
+  <div class="ch__cap"><div class="ch__meta"><h3>360° 정숙 휠</h3><p>좁은 골목도, 계단 앞에서도 흔들림 없이 부드럽게 굴러갑니다.</p></div></div>
+ </section>
+
+ 
+ <section class="ch">
+  <div class="ch__img" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/ch-03.jpeg')"></div>
+  <div class="ch__cap"><div class="ch__meta"><h3>TSA 잠금장치</h3><p>공항 검색대도 문제없이. 견고한 잠금으로 안심하고 맡기세요.</p></div></div>
+ </section>
+
+</div>
+<section class="look" id="look"><div class="wrap">
+ <div class="look__head"><h3>IN THE CITY</h3><span class="lab">LOOKBOOK 2026</span></div>
+</div>
+ 
+ <div class="look__viewport">
+  <div class="look__track" data-look-track>
+   <div class="look__item" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/look-01.jpeg')"></div><div class="look__item" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/look-02.jpeg')"></div><div class="look__item" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/look-03.jpeg')"></div><div class="look__item" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/look-04.jpeg')"></div><div class="look__item" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/look-05.jpeg')"></div><div class="look__item" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/look-06.jpeg')"></div>
+   <div class="look__item" aria-hidden="true" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/look-01.jpeg')"></div><div class="look__item" aria-hidden="true" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/look-02.jpeg')"></div><div class="look__item" aria-hidden="true" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/look-03.jpeg')"></div><div class="look__item" aria-hidden="true" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/look-04.jpeg')"></div><div class="look__item" aria-hidden="true" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/look-05.jpeg')"></div><div class="look__item" aria-hidden="true" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/look-06.jpeg')"></div>
+  </div>
+ </div>
+</section>
+<section class="buy" id="buy" data-buy>
+ 
+ <div class="buy__grid">
+  <div class="buy__media" data-buy-image style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/buy-black.jpeg')"></div>
+  <div class="buy__panel"><div class="sticky">
+   <p class="buy__brand">DURONEX</p>
+   <h2 class="buy__model">듀로넥스 시티 캐리어</h2>
+   <div class="buy__price"><span class="buy__now" data-buy-price>—</span><span class="buy__was" data-buy-list>—</span><span class="buy__off" data-buy-off></span></div>
+   <div class="buy__opt"><h4>Size</h4><div class="opts"><button class="opt" data-size="20">20"</button><button class="opt" data-size="22">22"</button><button class="opt" data-size="24">24"</button></div></div>
+   <div class="buy__opt"><h4>Color</h4><div class="opts"><button class="opt" data-color="black">매트 블랙</button><button class="opt" data-color="silver">실버</button></div></div>
+   <div class="buy__cta"><a class="btn" href="#" data-buy-cta>ADD TO CART</a></div>
+   <p class="buy__note">무료배송 · 7일 이내 교환 · 2년 품질보증</p>
+   <script type="application/json" data-buy-skus>[{"size":"20","color":"black","price":159000,"list":199000},{"size":"20","color":"silver","price":159000,"list":199000},{"size":"22","color":"black","price":179000,"list":229000},{"size":"22","color":"silver","price":179000,"list":229000},{"size":"24","color":"black","price":199000,"list":259000},{"size":"24","color":"silver","price":199000,"list":259000}]</script>
+   <script type="application/json" data-buy-imgmap>{"black":"https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/buy-black.jpeg","silver":"https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/buy-silver.jpeg"}</script>
+   <script type="application/json" data-buy-default>{"size":"20","color":"black"}</script>
+  </div></div>
+ </div>
+</section>
+<section class="sz" id="sizes"><div class="wrap">
+ <span class="lab">SIZE GUIDE</span>
+ <h3>사이즈 가이드</h3>
+ 
+ <div class="sz__row"><div class="sz__in mono">20"</div>
+  <div><span class="sz__k">USE</span><span class="sz__v">기내용 · 2박3일</span></div>
+  <div><span class="sz__k">VOL</span><span class="sz__v">약 35L</span></div>
+  <div><span class="sz__k">WEIGHT</span><span class="sz__v">3.1kg</span></div>
+  <div><span class="sz__k">SIZE(CM)</span><span class="sz__v">55×35×23</span></div>
+ </div>
+ 
+ <div class="sz__row"><div class="sz__in mono">22"</div>
+  <div><span class="sz__k">USE</span><span class="sz__v">기내 반입 가능 · 3박4일</span></div>
+  <div><span class="sz__k">VOL</span><span class="sz__v">약 45L</span></div>
+  <div><span class="sz__k">WEIGHT</span><span class="sz__v">3.4kg</span></div>
+  <div><span class="sz__k">SIZE(CM)</span><span class="sz__v">58×38×24</span></div>
+ </div>
+ 
+ <div class="sz__row"><div class="sz__in mono">24"</div>
+  <div><span class="sz__k">USE</span><span class="sz__v">화물용 중형 · 5박6일</span></div>
+  <div><span class="sz__k">VOL</span><span class="sz__v">약 65L</span></div>
+  <div><span class="sz__k">WEIGHT</span><span class="sz__v">4.0kg</span></div>
+  <div><span class="sz__k">SIZE(CM)</span><span class="sz__v">67×45×28</span></div>
+ </div>
+ 
+</div></section>
+
+<section class="cl" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/close.jpeg')"><div class="wrap"><div class="cl__c">
+ <h2>again,<br><em>anywhere.</em></h2>
+ <p>어디로 가든 듀로넥스와 함께.</p><a class="btn" href="#buy">컬렉션 보기</a>
+</div></div></section>
+
+<script>
+(function(){var h=document.querySelector("[data-hero]");if(!h)return;
+ var imgs=h.querySelectorAll("[data-hero-img]");var dotsWrap=h.querySelector("[data-hero-dots]");
+ if(imgs.length<2){if(dotsWrap)dotsWrap.style.display="none";return;}
+ var dots=[];if(dotsWrap){for(var k=0;k<imgs.length;k++){(function(idx){var b=document.createElement("button");b.className="hero__dot"+(idx===0?" on":"");b.setAttribute("aria-label","장면 "+(idx+1));b.onclick=function(){go(idx);reset();};dotsWrap.appendChild(b);dots.push(b);})(k);}}
+ var i=0,timer=null;
+ function paint(){imgs.forEach(function(im,x){im.classList.toggle("on",x===i);});dots.forEach(function(d,x){d.classList.toggle("on",x===i);});}
+ function go(n){i=(n+imgs.length)%imgs.length;paint();}
+ function tick(){go(i+1);}
+ function reset(){if(timer)clearInterval(timer);if(!matchMedia("(prefers-reduced-motion:reduce)").matches)timer=setInterval(tick,5000);}
+ paint();reset();
+ document.addEventListener("visibilitychange",function(){if(document.hidden){if(timer)clearInterval(timer);}else{reset();}});
+})();
+(function(){var root=document.querySelector("[data-buy]");if(!root)return;var skus=[],def={size:"",color:""},imap={};
+ try{skus=JSON.parse(root.querySelector("[data-buy-skus]").textContent);}catch(e){}
+ try{def=JSON.parse(root.querySelector("[data-buy-default]").textContent);}catch(e){}
+ try{imap=JSON.parse(root.querySelector("[data-buy-imgmap]").textContent);}catch(e){}
+ var sel={size:def.size,color:def.color};
+ var pNow=root.querySelector("[data-buy-price]"),pWas=root.querySelector("[data-buy-list]"),pOff=root.querySelector("[data-buy-off]"),media=root.querySelector("[data-buy-image]");
+ function won(n){return Number(n).toLocaleString("ko-KR")+"원";}
+ function find(){return skus.filter(function(s){return s.size==sel.size&&s.color==sel.color;})[0];}
+ function render(){
+  root.querySelectorAll("[data-size]").forEach(function(b){b.classList.toggle("on",b.dataset.size==sel.size);});
+  root.querySelectorAll("[data-color]").forEach(function(b){b.classList.toggle("on",b.dataset.color==sel.color);});
+  var s=find();
+  if(!s){pNow.textContent="SOLD OUT";pWas.textContent="";pOff.textContent="";return;}
+  pNow.textContent=won(s.price);
+  if(s.list&&s.list>s.price){pWas.textContent=won(s.list);pOff.textContent="-"+Math.round((1-s.price/s.list)*100)+"%";}else{pWas.textContent="";pOff.textContent="";}
+  var im=imap[sel.color];if(im&&media){media.style.backgroundImage="url('"+im+"')";}
+ }
+ root.querySelectorAll("[data-size]").forEach(function(b){b.onclick=function(){sel.size=b.dataset.size;render();};});
+ root.querySelectorAll("[data-color]").forEach(function(b){b.onclick=function(){sel.color=b.dataset.color;render();};});
+ render();
+})();
+
+</script>
+
+<!--@define(cmc_log)-->
