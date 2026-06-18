@@ -52,7 +52,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit;text-decoration:non
 
 /* CHAPTERS */
 .ch{position:relative;border-top:2px solid #000}
-.ch__img{width:100%;height:clamp(380px,68vw,640px);background-size:cover;background-position:center}
+.ch__img{width:100%;aspect-ratio:16/10;max-height:760px;min-height:420px;background-size:cover;background-position:center 25%}
 .ch__cap{position:absolute;z-index:3;left:0;right:0;bottom:0;padding:clamp(20px,4vw,40px) var(--gut);display:flex;justify-content:space-between;align-items:flex-end;gap:18px;color:#fff;background:linear-gradient(180deg,transparent,rgba(0,0,0,.82))}
 .ch__no{font-size:clamp(2rem,6vw,4.6rem);font-weight:800;line-height:.8;letter-spacing:-.03em;flex:0 0 auto;color:var(--blue);-webkit-text-stroke:1.5px #fff}
 .ch__meta{max-width:46ch}
@@ -99,7 +99,7 @@ img{display:block;max-width:100%;height:auto}a{color:inherit;text-decoration:non
 @media(max-width:680px){.sz__row{grid-template-columns:1fr 1fr;gap:10px 14px}.sz__in{grid-column:1/-1;margin-bottom:4px}}
 
 /* CLOSING */
-.cl{position:relative;min-height:560px;display:flex;align-items:flex-end;background:var(--bg2) center/cover;overflow:hidden}
+.cl{position:relative;min-height:560px;display:flex;align-items:flex-end;background:var(--bg2) center 25%/cover;overflow:hidden}
 .cl::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.78))}
 .cl__c{position:relative;z-index:2;padding-bottom:clamp(36px,6vw,72px)}
 .cl__c h2{font-size:clamp(2.8rem,9vw,7rem);font-weight:800;line-height:1.02;letter-spacing:-.04em;color:#fff;text-transform:none;text-shadow:0 4px 30px rgba(0,0,0,.5)}
@@ -170,6 +170,32 @@ img{display:block;max-width:100%;height:auto}a{color:inherit;text-decoration:non
  .look__track{animation-duration:70s}
 }
 
+
+
+/* 챕터별 포커스 (얼굴 살림) */
+#chapters .ch:nth-of-type(1) .ch__img{background-position:center 30%}
+#chapters .ch:nth-of-type(2) .ch__img{background-position:center 12%}
+#chapters .ch:nth-of-type(3) .ch__img{background-position:center 30%}
+@media(min-width:1400px){
+ #chapters .ch:nth-of-type(2) .ch__img{background-position:center 8%}
+}
+
+
+
+
+/* CHAPTERS split - PC only (모바일은 기존 풀와이드 유지) */
+@media(min-width:761px){
+ .ch{display:grid;grid-template-columns:1fr 1fr;background:var(--bg2)}
+ .ch__img{position:relative;width:100%;height:100%;min-height:clamp(440px,42vw,640px);background-size:cover}
+ .ch__cap{position:static;display:flex;align-items:center;padding:clamp(36px,5vw,72px);background:var(--bg2);background-image:none}
+ .ch__meta h3{color:#fff}
+ .ch__meta p{color:rgba(255,255,255,.78)}
+ .ch:nth-of-type(even) .ch__img{order:2}
+ #chapters .ch:nth-of-type(1) .ch__img{background-position:center 30%}
+ #chapters .ch:nth-of-type(2) .ch__img{background-position:center 16%}
+ #chapters .ch:nth-of-type(3) .ch__img{background-position:center 28%}
+}
+
 </style>
 
 <script>
@@ -192,14 +218,14 @@ img{display:block;max-width:100%;height:auto}a{color:inherit;text-decoration:non
 <section class="man"><div class="wrap">
  <span class="lab">BRAND</span>
  <h2>가볍게 떠나고<br><mark>단단하게</mark> 도착한다</h2>
- <p>항공 등급 알루미늄 보디. 일상에서도 여행에서도, 듀로넥스가 끝까지 함께합니다.</p>
+ <p>항공 등급 알루미늄 바디. 일상에서도 여행에서도, 듀로넥스가 끝까지 함께합니다.</p>
 </div></section>
 <div id="chapters">
 
  
  <section class="ch">
   <div class="ch__img" style="background-image:url('https://cdn.jsdelivr.net/gh/jaywayshot/duronex-img@main/img/ch-01..jpeg')"></div>
-  <div class="ch__cap"><div class="ch__meta"><h3>알루미늄 보디</h3><p>흠집과 충격에 강한 무광 알루미늄. 오래 쓸수록 멋이 깊어집니다.</p></div></div>
+  <div class="ch__cap"><div class="ch__meta"><h3>알루미늄 바디</h3><p>흠집과 충격에 강한 무광 알루미늄. 오래 쓸수록 멋이 깊어집니다.</p></div></div>
  </section>
 
  
